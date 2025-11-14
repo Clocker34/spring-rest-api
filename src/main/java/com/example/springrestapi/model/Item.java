@@ -1,34 +1,36 @@
 package com.example.springrestapi.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "item")
 public class Item {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Column(nullable = false, unique = true)
     private String sku;
+
+    @Column(nullable = false)
     private double price;
+
+    @Column(name = "supplier_id", nullable = false)
     private int supplierId;
 
-    public Item() {}
-
-    public Item(int id, String name, String description, String sku, double price, int supplierId) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.sku = sku;
-        this.price = price;
-        this.supplierId = supplierId;
-    }
-
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-    public String getSku() { return sku; }
-    public void setSku(String sku) { this.sku = sku; }
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
-    public int getSupplierId() { return supplierId; }
-    public void setSupplierId(int supplierId) { this.supplierId = supplierId; }
+    @Column(name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
 }
